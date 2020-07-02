@@ -20,7 +20,7 @@ public class TestServiceController {
         this.testBusinessLogicService = testBusinessLogicService;
     }
 
-    @PostMapping(path = {"/create"}, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = {"/"}, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonEntity> createPerson(@RequestBody Person person) {
         PersonEntity personEntity = testBusinessLogicService.processCreate(person);
         return new ResponseEntity<>(personEntity, HttpStatus.OK);
@@ -36,5 +36,16 @@ public class TestServiceController {
     public ResponseEntity<List<PersonEntity>> getAll() {
         List<PersonEntity> personEntities = testBusinessLogicService.processGetAll();
         return new ResponseEntity<>(personEntities, HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"/person/{id}"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PersonEntity> Put(@RequestBody Person person) {
+        PersonEntity personEntity = testBusinessLogicService.processCreate(person);
+        return new ResponseEntity<>(personEntity, HttpStatus.OK);
+    }
+    @GetMapping(path = {"/person/{id}"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PersonEntity> Delete(@PathVariable String id) {
+        PersonEntity personEntity = testBusinessLogicService.processGet(id);
+        return new ResponseEntity<>(personEntity, HttpStatus.OK);
     }
 }
